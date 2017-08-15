@@ -6,9 +6,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
-    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
     <flow name="mavenflowFlow">
-        <http:listener config-ref="HTTP_Listener_Configuration" path="/sayHello" doc:name="HTTP" allowedMethods="GET"/>
+        <http:listener config-ref="HTTP_Listener_Configuration_Global" path="/sayHello" doc:name="HTTP" allowedMethods="GET"/>
         <set-variable variableName="fname" value="#[message.inboundProperties.'http.query.params'.name]" doc:name="Variable:name"/>
         <set-payload value="#[flowVars.fname]" doc:name="Set Payload"/>
         <logger level="INFO" doc:name="Logger"/>

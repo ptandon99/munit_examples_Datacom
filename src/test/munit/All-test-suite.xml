@@ -27,14 +27,14 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 	</munit:test>
 	<munit:test name="sayHello-test-suite-mavenflowFlowTest"
 		description="Test" >
-		<flow-ref name="mavenflowFlow" doc:name="Flow-ref to mavenflowFlow" />
+		<flow-ref name="mavenflowFlow" doc:name="mavenflowFlow" />
 		<munit:assert-payload-equals message="does not contain parveen"
 			expectedValue="Parveen" doc:name="Assert Payload" />
 	</munit:test>
 
 	<munit:test name="hello_fname_return_lastname" description="check fname"
 		>
-		<flow-ref name="mavenflowFlow" doc:name="Flow-ref to mavenflowFlow" />
+		<flow-ref name="mavenflowFlow" doc:name="mavenflowFlow" />
 		<munit:assert-on-equals
 			message="FAILED:  exptected  fname to contain Parveen but found #[flowVars.fname] instead"
 			expectedValue="Parveen" actualValue="#[flowVars.fname]" doc:name="Assert Equals" />
