@@ -7,8 +7,10 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     <spring:beans>
         <spring:import resource="classpath:order-system.xml"/>
     </spring:beans>
+    <munit:before-test name="processOrder-test-suiteBefore_Test" description="Before tests actions">
+        <munit:set payload="#[[{'orderID':444, 'location':'worldwide','price':14.01}, {'orderID':444, 'location':'worldwide','price':14.01}, {'orderID':555, 'location':'national','price':14.01}]]" doc:name="Set Message payload contains domestic international"/>
+    </munit:before-test>
     <munit:test name="processOrder-test-suite-order-systemFlowTest" description="Calling processOrders flow return payload containing two/key value pairs of type java map">
-        <munit:set payload="#[[{'orderID':444, 'location':'international','price':14.01}, {'orderID':444, 'location':'international','price':14.01}, {'orderID':555, 'location':'domestic','price':14.01}]]" doc:name="Set Message payload contains domestic international"/>
         <flow-ref name="processOrder" doc:name="Flow Reference"/>
         <munit:assert-true message="FAILED : EXPECTED PAYLOAD datatype to be of java map but found #[payload.getClass().getName()]" condition="#[payload is java.util.Map]" doc:name="Assert True"/>
         <munit:assert-on-equals message="failed : size does not match to 2" expectedValue="#[2]" actualValue="#[message.payload.size()]" doc:name="Assert Equals"/>
@@ -16,7 +18,6 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     
     
     <munit:test name="processOrder_internationalKeyContainworldWideOrder_True" description="Calliing Process Order Flow returns world wide order when key is international ">
-        <munit:set payload="#[[{'orderID':444, 'location':'worldwide','price':14.01}, {'orderID':444, 'location':'worldwide','price':14.01}, {'orderID':555, 'location':'national','price':14.01}]]" doc:name="Set Message payload contains domestic international"/>
         <flow-ref name="processOrder" doc:name="Flow-ref to processOrder"/>
         <munit:assert-true message="FAILED : there are no rows in the international key" condition="#[payload.'international'.size() &gt; 0]" doc:name="Assert True"/>
         <foreach collection="#[payload.'international']" doc:name="For Each">
@@ -25,7 +26,6 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     </munit:test>
     
         <munit:test name="processOrder_domesticKeyContainworldNationl_True" description="Calliing Process Order Flow returns natonal order when key is natonal ">
-        <munit:set payload="#[[{'orderID':444, 'location':'worldwide','price':14.01}, {'orderID':444, 'location':'worldwide','price':14.01}, {'orderID':555, 'location':'national','price':14.01}]]" doc:name="Set Message payload contains domestic international"/>
         <flow-ref name="processOrder" doc:name="Flow-ref to processOrder"/>
         <munit:assert-true message="FAILED : there are no rows in the national key" condition="#[payload.'domestic'.size() &gt; 0]" doc:name="Assert True"/>
         <foreach collection="#[payload.'domestic']" doc:name="For Each">
