@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.mulesoft.training</groupId>
-	<artifactId>order-system</artifactId>
+	<artifactId>order-system-parveen</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>mule</packaging>
 	<name>Mule order-system Application</name>
@@ -16,10 +16,41 @@
     	<mule.tools.version>1.2</mule.tools.version>
 	<munit.version>1.3.4</munit.version>
     <mule.munit.support.version>3.8.4</mule.munit.support.version>
+    
+    <uid>parveent</uid>
+    <pwd>Jaigurudev99</pwd>
     </properties>
 
 	<build>
 		<plugins>
+		
+		<plugin>
+    <groupId>org.mule.tools.maven</groupId>
+    <artifactId>mule-maven-plugin</artifactId>
+    <version>2.0</version>
+    <configuration>
+        <deploymentType>cloudhub</deploymentType>
+        <muleVersion>${mule.version}</muleVersion>
+        <username>${uid}</username>
+        <password>${pwd}</password>
+	      <workerType>Micro</workerType>
+        <redeploy>true</redeploy>
+        <environment>Production</environment>
+    </configuration>
+    <executions>
+        <execution>
+            <id>deploy</id>
+            <phase>deploy</phase>
+            <goals>
+                <goal>deploy</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
+		
+		
+		
+		
 			<plugin>
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-app-maven-plugin</artifactId>
@@ -199,6 +230,12 @@
     <dependency>
             <groupId>org.mule.transports</groupId>
             <artifactId>mule-transport-ajax</artifactId>
+            <version>${mule.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    <dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-ws</artifactId>
             <version>${mule.version}</version>
             <scope>provided</scope>
         </dependency>

@@ -9,7 +9,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
 	<munit:config name="munit" doc:name="MUnit configuration" />
 	<spring:beans>
 		<spring:import resource="classpath:sayHello.xml" />
-		<spring:import resource="classpath:order-system.xml" />
+		
 	</spring:beans>
 	<munit:before-test name="All-test-suiteBefore_Test"
 		description="Before tests actions">

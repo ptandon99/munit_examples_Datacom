@@ -6,6 +6,7 @@ http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/cor
     <munit:config name="munit" doc:name="MUnit configuration"/>
     <spring:beans>
         <spring:import resource="classpath:order-system.xml"/>
+         <spring:import resource="classpath:global.xml"/>
     </spring:beans>
     <munit:before-test name="processOrder-test-suiteBefore_Test" description="Before tests actions">
         <munit:set payload="#[[{'orderID':444, 'location':'worldwide','price':14.01}, {'orderID':444, 'location':'worldwide','price':14.01}, {'orderID':555, 'location':'national','price':14.01}]]" doc:name="Set Message payload contains domestic international"/>
